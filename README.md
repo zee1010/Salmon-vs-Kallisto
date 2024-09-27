@@ -84,7 +84,7 @@ analysis is quite large and so it can be seen in the appendix with well document
 
 ![image](https://github.com/user-attachments/assets/ff030353-6d73-4662-9aba-39586a09e463)
 
--Format required for DESeq2
+- Format required for DESeq2
 
 ![image](https://github.com/user-attachments/assets/408990d5-e422-4623-a355-a8be0ab21c56)
 
@@ -111,21 +111,24 @@ more (5) options to run a default base quantification whereas salmon only requir
 transcriptome and quantification for salmon took less than 10 minutes each whereas kallisto took
 relatively longer. So overall it is favourable for beginners to use salmon rather than kallisto
 
+- Figure 1.
+
 ![image](https://github.com/user-attachments/assets/9d139db4-7253-40d3-9aa9-285f59a4a7df)
 
 
-Figure 1.
+
 Fig1: A heat map of differential gene expression in Acropora millepora larvae (n=20-30) under 4
 conditions, long term control, long term elevated temperature, short term control and short-term
 elevated temperature analysed using the software salmon.
+
 Table 1. Gene names of differentially expressed genes using the software salmon.
 ![image](https://github.com/user-attachments/assets/ff21cf66-52cd-48cc-9e2e-fe2285f57edf)
 ![image](https://github.com/user-attachments/assets/69a8fdd0-e50b-4872-9ee1-bb96d1786341)
 
-
+- Figure 2.
+  
 ![image](https://github.com/user-attachments/assets/93e48279-9966-4dd8-bcf1-01d39a34db5a)
 
-Figure 2.
 Fig2: A heat map of differential gene expression in Acropora millepora larvae (n=20-30) under 4
 conditions, long term control, long term elevated temperature, short term control and short-term
 elevated temperature analysed using the software kallisto.
@@ -189,3 +192,9 @@ Meyer, E., Aglyamova, G. V., & Matz, M. V. (2011). Profiling gene expression res
 procedure. Molecular ecology, 20(17), 3599–3616. https://doi.org/10.1111/j.1365-
 294X.2011.05205.x
 Vignettes and Manuals :
+Getting started. Salmon: Fast, accurate and bias-aware transcript quantification from RNA-seq data.
+(n.d.). Retrieved April 13, 2023, from https://combine-lab.github.io/salmon/getting_started/
+Patcher. (n.d.). Kallisto Manual. Sitewide ATOM. Retrieved April 13, 2023, from
+https://pachterlab.github.io/kallisto/manual
+Love, M., Anders, S., & Huber, W. (2023, March 9). Analyzing RNA-seq data with DESeq2. Analyzing RNAseq data with deseq2. Retrieved April 13, 2023, from
+http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html 
