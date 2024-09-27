@@ -132,7 +132,9 @@ Table 1. Gene names of differentially expressed genes using the software salmon.
 Fig2: A heat map of differential gene expression in Acropora millepora larvae (n=20-30) under 4
 conditions, long term control, long term elevated temperature, short term control and short-term
 elevated temperature analysed using the software kallisto.
+
 Table 2. Gene names differentially expressed genes using the software kallisto.
+
 ![image](https://github.com/user-attachments/assets/bc2495a4-ae0b-4596-9d7a-b2b2a10e100b)
 
 ### Reflection:
