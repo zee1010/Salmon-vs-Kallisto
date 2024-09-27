@@ -1,5 +1,5 @@
 # Salmon-vs-Kallisto
-##Introduction
+## Introduction
 
 Salmon and Kallisto are two next generation methods for quantifying transcript abundance (Patro et al.,
 2017). This process is foundational to genetics and biology as it helps classify diseases as well as monitor
