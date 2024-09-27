@@ -19,42 +19,53 @@ achieved using these workflows. Data was taken from the article “Profiling gen
 coral larvae (Acropora millepora) to elevated temperature and settlement inducers using a novel RNASeq procedure can be achieved” (Meyer et al., 2011). We will document the workflow, challenges, and
 downstream analysis using DESeq2 and pheatmap.
 
-##Methods
-###Dataset details
+## Methods
+### Dataset details
 This dataset was obtained through NCBI with the SRA accession code SRA029780. Although multiple
 variables were tested in the original article, for our analysis we focused on larvae exposed to short term
 and long-term temperature elevation, we only took data library 1, using 35 base pair reads, with 2 reads
 each and their control. We used the sra-toolkit module to obtain this data, along with run information
 the following code was used to obtain these samples
+```
 fasterq-dump --fasta <input run names>
+```
 We have included the exact run names for each sample used in the appendix section. We also obtained
 the transcriptome (and annotation file) from ncbi(link in appendix) which was available in a .fna format
 whereas the experimental data was downloaded as a .fasta format. The transcriptome was obtained
 using wget, along with the ftp link which can be found in the appendix.
+
 First the transcriptome was indexed using both salmon and kallisto this allows for quick and efficient
 retrieval of information instead of going through the whole transcriptome to match samples (note: all
 analyses were done through sbatch to allow for sufficient computational power). In salmon we can use
 following code to index our genome
+```
 salmon index -t <transcriptomename.fa.gz> -i <directoryofindexedgenome>
+```
 Whereas in kallisto you have to use
+```
 kallisto index -I <nameofindexedtranscrptome.idx> <transcriptomename.fa.gz>
-
+```
 Next, we quantified our samples, for both salmon and kallisto we used the base default settings to
 prevent us from over complicating things. In salmon we used the following code. The -i option points
 salmon to the indexed transcriptome of the data. The -l A option tells salmon to automatically
 determine which library is being used. Since this was a single instead of paired read end library, we used
 the -r option, however for paired reads you can use -1 and -2 options. Finally, the -o option tells salmon
 where to output the file from this command.
+```
 salmon quant -i <indexed transcriptome> -l A -r <samples> --validateMappings -o <output>
+```
 For kallisto quantification we used the following code:
+```
 kallisto quant -i <indexed kallisto transcriptome.idx>-o <output directory> -b 100 --single -l <fragment
 size> -s <fragment standard deviation> <sample>
+```
 The -i option tells kallisto where to find the indexed transcriptome, the -o option tells kallisto what the
 name of the output directory should be. The -b option indicates the number of bootstrap samples, we
 set this to 100, however this should be dependant on your analysis. The –single -l -s option specifies
 single read ends; with whatever fragment size and standard deviation your fragment was conducted
 with. For our analysis we chose arbitrary values based on what literature recommends as fragment size
 and standard deviation were not available with supplemental information.
+
 Next these files were taken imported into R with the help of tximport so that correct formatting for
 DESeq2 was attained. The files obtained from kallisto and salmon were moved to the tximportData file
 in R for ease of use. Run information was first obtained for the variables used in our analysis
@@ -64,11 +75,18 @@ rather than transcript level. Finally, a DESeqDataSet was generated which was co
 The format can be seen below. Once this was complete DESeq2 was used to quantify differential gene
 expression and lastly pheatmap was used to generate a heatmap. The code for this portion of the
 analysis is quite large and so it can be seen in the appendix with well documented comments.
-Format of files obtained from salmon and Kallisto:
+### Format of files obtained from salmon and Kallisto:
+Salmon
 
+![image](https://github.com/user-attachments/assets/115ead8e-085e-4f31-bb48-599c54daeae8)
+
+Kallisto
+![image](https://github.com/user-attachments/assets/ff030353-6d73-4662-9aba-39586a09e463)
 
 Format required for DESeq2
-##Results/Discussion:
+![image](https://github.com/user-attachments/assets/408990d5-e422-4623-a355-a8be0ab21c56)
+
+## Results/Discussion:
 The purpose of this analysis was to determine whether one RNA quantifier was more user friendly and
 efficient in comparison to the other and whether results similar to the article could be achieved using
 these workflows. It was predicted that short term temperature elevation would lead to the upregulation
@@ -91,61 +109,28 @@ more (5) options to run a default base quantification whereas salmon only requir
 transcriptome and quantification for salmon took less than 10 minutes each whereas kallisto took
 relatively longer. So overall it is favourable for beginners to use salmon rather than kallisto
 
+![image](https://github.com/user-attachments/assets/9d139db4-7253-40d3-9aa9-285f59a4a7df)
+
 
 Figure 1.
 Fig1: A heat map of differential gene expression in Acropora millepora larvae (n=20-30) under 4
 conditions, long term control, long term elevated temperature, short term control and short-term
 elevated temperature analysed using the software salmon.
 Table 1. Gene names of differentially expressed genes using the software salmon.
-Symbol name
-LOC114956595 leucine-rich repeat-containing protein 4C-like
-LOC114976783 40S ribosomal protein S23
-LOC114956292 RNA-binding motif protein, X-linked 2-like
-LOC114959313 Ribosome biogenesis regulatory protein homolog
-LOC114954402 transcription factor Sox-2
-LOC114971742 proteasome subunit alpha type-6-like
-LOC114968302 uncharacterized
-LOC114958041 peptidyl-prolyl cis-trans isomerase Fkbp12-like
-LOC114957273 60S ribosomal protein L27-like
-LOC114948372 microtubule-associated proteins 1A/1B light chain 3A-like
-LOC114969551 soluble calcium-activated nucleotidase 1-like
-LOC114977747 uncharacterized
-LOC114968439 uncharacterized
-LOC114953329 electron transfer flavoprotein subunit beta-like
-LOC114970370 vesicle-associated membrane protein-associated protein B-like
-Zuhaa Ali
-LOC114965014 achaete-scute homolog 1-like
-LOC114947394 cytochrome c
-LOC114959856 uncharacterized
-LOC114956621 glucosamine 6-phosphate N-acetyltransferase-like
-LOC114956516 hydroxysteroid dehydrogenase-like protein 2
+![image](https://github.com/user-attachments/assets/ff21cf66-52cd-48cc-9e2e-fe2285f57edf)
+![image](https://github.com/user-attachments/assets/69a8fdd0-e50b-4872-9ee1-bb96d1786341)
+
+
+![image](https://github.com/user-attachments/assets/93e48279-9966-4dd8-bcf1-01d39a34db5a)
+
 Figure 2.
 Fig2: A heat map of differential gene expression in Acropora millepora larvae (n=20-30) under 4
 conditions, long term control, long term elevated temperature, short term control and short-term
 elevated temperature analysed using the software kallisto.
 Table 2. Gene names differentially expressed genes using the software kallisto.
-Symbol Gene
-LOC114976783 40S ribosomal protein S23
-LOC114956292 RNA-binding motif protein, X-linked 2-like
-LOC114954402 transcription factor Sox-2
-LOC114977747 uncharacterized
-LOC114955593 general transcription factor IIF subunit 2-like
-LOC114956595 leucine-rich repeat-containing protein 4C-like
-LOC114953329 electron transfer flavoprotein subunit beta-like
-LOC114965014 achaete-scute homolog 1-like
-LOC114952752 protein FAM228B-like
-LOC114959313 ribosome biogenesis regulatory protein homolog
-LOC114970370 vesicle-associated membrane protein-associated protein B-like
-LOC114968302 uncharacterized
-LOC114971742 proteasome subunit alpha type-6-like
-LOC114971052 50S ribosomal protein L4-like
-LOC114968439 50S ribosomal protein L4-like
-LOC114957273 60S ribosomal protein L27-like
-LOC114948372 microtubule-associated proteins 1A/1B
-LOC114956516 hydroxysteroid dehydrogenase-like protein 2
-LOC114961541 ras-related protein Ral-A-like
-LOC114955960 14-3-3 protein epsilon
-Reflection:
+![image](https://github.com/user-attachments/assets/bc2495a4-ae0b-4596-9d7a-b2b2a10e100b)
+
+### Reflection:
 The overall experience using the workflow was quite pleasant. Both RNA-seq quantifiers have well
 documented, accessible, and in-depth manuals. In general, we found salmon to be more user friendly as
 all the options were clearly labelled leaving no room for ambiguity. From our experience salmon was
@@ -182,7 +167,7 @@ used above. In addition, we believe that tximport for importing data may also ca
 however these can be resolved by running our code as is and then customizing it later. Lastly, we believe
 this workflow can be improved by including a tutorial on QC steps as they are required for all libraries
 generated and running the normalization step to see what impact it has on results.
-Reference:
+### Reference:
 Patro, R., Duggal, G., Love, M. I., Irizarry, R. A., & Kingsford, C. (2017). Salmon provides fast and biasaware quantification of transcript expression. Nature Methods, 14(4), 417–419.
 https://doi.org/10.1038/nmeth.4197
 Hoadley, K. A., Yau, C., Wolf, D. M., Cherniack, A. D., Tamborero, D., Ng, S., Leiserson, M. D. M., Niu, B.,
