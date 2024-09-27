@@ -76,14 +76,16 @@ The format can be seen below. Once this was complete DESeq2 was used to quantify
 expression and lastly pheatmap was used to generate a heatmap. The code for this portion of the
 analysis is quite large and so it can be seen in the appendix with well documented comments.
 ### Format of files obtained from salmon and Kallisto:
-Salmon
+- Salmon
 
 ![image](https://github.com/user-attachments/assets/115ead8e-085e-4f31-bb48-599c54daeae8)
 
-Kallisto
+- Kallisto
+
 ![image](https://github.com/user-attachments/assets/ff030353-6d73-4662-9aba-39586a09e463)
 
-Format required for DESeq2
+-Format required for DESeq2
+
 ![image](https://github.com/user-attachments/assets/408990d5-e422-4623-a355-a8be0ab21c56)
 
 ## Results/Discussion:
